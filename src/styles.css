@@ -1,3 +1,20 @@
 .todo-item-container {
-    width: 400px;
+  width: 400px;
+}
+
+.nav-container {
+  background-color: #94b3fd;
+  padding: 20px;
+  color: white;
+}
+
+.todo-container {
+  padding: 40px 240px;
+  margin: 20px 340px;
+}
+
+.list-todo {
+  padding: 40px;
+  box-shadow: 0 0 0 10px #99feff, 0 0 0 20px #94daff, 0 0 0 30px #94b3fd,
+    0 0 0 40px #b983ff;
 }

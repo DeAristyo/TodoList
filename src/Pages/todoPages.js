@@ -14,13 +14,35 @@ class TodoPage extends React.Component {
     inputTodo: ""
   };
 
+  deleteModal = () => {
+    return (
+      <div className="modal" tabIndex="-1">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <div className="modal-title">Delete To Do</div>
+              <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>To Do Deleted</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   renderTodoLis = () => {
     return this.props.todoGlobalState.todoList.map((val) => {
       return (
-        <TodoItems
-          comTodoHandler={this.completeTodo}
-          delTodoHandler={this.deleteTodo}
-          todoData={val} />
+        <ul>
+          <li>
+            <TodoItems
+              comTodoHandler={this.completeTodo}
+              delTodoHandler={this.deleteTodo}
+              todoData={val} />
+          </li>
+        </ul>
       );
     });
   };
@@ -73,13 +95,15 @@ class TodoPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>To Do list</h1>
-        {/* <button onClick={this.fetchTodo} className="btn btn-info">Show To Do {this.props.todoGlobalState.todoCount}</button> */}
-        {this.renderTodoLis()}
-        <div>
-          <input onChange={(e) => this.inputHandler(e)} type="text" className="mx-3" />
-          <button onClick={this.addTodo} className="btn btn-primary">Add To Do</button>
+      <div className="todo-container">
+        <div className="list-todo d-flex flex-column justify-content-center align-items-center">
+          <h1>To Do list</h1>
+          {/* <button onClick={this.fetchTodo} className="btn btn-info">Show To Do {this.props.todoGlobalState.todoCount}</button> */}
+          {this.renderTodoLis()}
+          <div>
+            <input onChange={(e) => this.inputHandler(e)} type="text" className="mx-3" placeholder="Create To Do" />
+            <button onClick={this.addTodo} className="btn-add">Add To Do</button>
+          </div>
         </div>
       </div>
     );
