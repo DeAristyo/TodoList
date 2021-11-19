@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import TodoItems from '../components/todoItems';
 import React from 'react';
 import Axios from 'axios';
+import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { changeTodoCount, decrementTodoCount, incrementTodoCount, fetchGTodo } from '../redux/actions/todo';
 import { API } from '../Constants/API';
@@ -11,25 +12,17 @@ class TodoPage extends React.Component {
 
   state = {
     todoList: [],
-    inputTodo: ""
+    inputTodo: "",
+    openModal: false,
+    modalMasage: ""
   };
 
-  deleteModal = () => {
-    return (
-      <div className="modal" tabIndex="-1">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <div className="modal-title">Delete To Do</div>
-              <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <p>To Do Deleted</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  funOpenModal = (state) => {
+    this.setState({ openModal: true, modalMasage: state });
+  };
+
+  closeModal = () => {
+    this.setState({ openModal: false, modalMasage: "" });
   };
 
   renderTodoLis = () => {
@@ -52,8 +45,8 @@ class TodoPage extends React.Component {
       isFinished: true
     })
       .then(() => {
-        alert("To Do Completed!");
         this.props.fetchGTodo();
+        this.funOpenModal("To Do Completed");
       })
       .catch((err) => {
         alert("There's an error in the system!");
@@ -66,21 +59,32 @@ class TodoPage extends React.Component {
       isFinished: false
     })
       .then(() => {
-        alert("To Do Added");
+        // alert("To Do Added");
+        this.funOpenModal("To Do Added");
         this.props.fetchGTodo();
+        this.setState({ inputTodo: "" });
       })
       .catch((err) => {
+        console.log(err);
         alert("There's an error in the system!");
       });
+  };
+
+  handleAddTodo = (event) => {
+    console.log(event);
+    if (event.keyCode === 13) {
+      this.addTodo();
+    }
   };
 
   deleteTodo = (id) => {
     Axios.delete(`${API}/todo/${id}`)
       .then(() => {
-        alert("To Do Deleted");
         this.props.fetchGTodo();
+        this.funOpenModal("To Do Deleted");
       })
       .catch((err) => {
+        console.log(err);
         alert("There's an error in the system!");
       });
   };
@@ -93,15 +97,36 @@ class TodoPage extends React.Component {
     this.props.fetchGTodo();
   }
 
+  customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      borderRadius: '30%',
+      transform: 'translate(-50%, -50%)',
+    }
+  };
+
   render() {
     return (
       <div className="todo-container">
+        <ReactModal
+          style={this.customStyles}
+          onRequestClose={this.closeModal}
+          isOpen={this.state.openModal}
+          shouldCloseOnEsc
+          shouldCloseOnOverlayClick
+        >
+          <h1>{this.state.modalMasage}</h1>
+
+        </ReactModal>
         <div className="list-todo d-flex flex-column justify-content-center align-items-center">
           <h1>To Do list</h1>
-          {/* <button onClick={this.fetchTodo} className="btn btn-info">Show To Do {this.props.todoGlobalState.todoCount}</button> */}
           {this.renderTodoLis()}
           <div>
-            <input onChange={(e) => this.inputHandler(e)} type="text" className="mx-3" placeholder="Create To Do" />
+            <input value={this.state.inputTodo} onKeyDown={this.handleAddTodo} onChange={(e) => this.inputHandler(e)} type="text" className="mx-3" placeholder="Create To Do" />
             <button onClick={this.addTodo} className="btn-add">Add To Do</button>
           </div>
         </div>

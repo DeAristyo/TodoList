@@ -1,9 +1,19 @@
 {
   "todo": [
     {
-      "activity": "dolot",
+      "activity": "Ngoding",
+      "isFinished": false,
+      "id": 1
+    },
+    {
+      "activity": "Turu",
       "isFinished": false,
       "id": 2
+    },
+    {
+      "activity": "Ngising",
+      "isFinished": false,
+      "id": 3
     }
   ]
 }
