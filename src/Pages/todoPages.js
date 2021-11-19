@@ -31,7 +31,7 @@ class TodoPage extends React.Component {
         <ul>
           <li>
             <TodoItems
-              comTodoHandler={this.completeTodo}
+              completeTodoHandler={this.completeTodo}
               delTodoHandler={this.deleteTodo}
               todoData={val} />
           </li>
@@ -59,8 +59,6 @@ class TodoPage extends React.Component {
       isFinished: false
     })
       .then(() => {
-        // alert("To Do Added");
-        this.funOpenModal("To Do Added");
         this.props.fetchGTodo();
         this.setState({ inputTodo: "" });
       })
@@ -81,7 +79,7 @@ class TodoPage extends React.Component {
     Axios.delete(`${API}/todo/${id}`)
       .then(() => {
         this.props.fetchGTodo();
-        this.funOpenModal("To Do Deleted");
+        this.funOpenModal("To Do Deleted!!");
       })
       .catch((err) => {
         console.log(err);
@@ -104,7 +102,7 @@ class TodoPage extends React.Component {
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
-      borderRadius: '30%',
+      borderRadius: '5px',
       transform: 'translate(-50%, -50%)',
     }
   };
@@ -119,14 +117,14 @@ class TodoPage extends React.Component {
           shouldCloseOnEsc
           shouldCloseOnOverlayClick
         >
-          <h1>{this.state.modalMasage}</h1>
+          <h4>{this.state.modalMasage}</h4>
 
         </ReactModal>
         <div className="list-todo d-flex flex-column justify-content-center align-items-center">
           <h1>To Do list</h1>
           {this.renderTodoLis()}
           <div>
-            <input value={this.state.inputTodo} onKeyDown={this.handleAddTodo} onChange={(e) => this.inputHandler(e)} type="text" className="mx-3" placeholder="Create To Do" />
+            <input value={this.state.inputTodo} onKeyDown={this.handleAddTodo} onChange={(e) => this.inputHandler(e)} type="text" className="input-todo mx-3" placeholder="Create To Do" />
             <button onClick={this.addTodo} className="btn-add">Add To Do</button>
           </div>
         </div>

@@ -14,7 +14,6 @@ class Navbar extends React.Component {
 
 const mapStateProps = (state) => {
     return {
-        testingProps: 1,
         todoGlobalState: state.todo,
     };
 };

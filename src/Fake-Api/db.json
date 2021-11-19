@@ -1,19 +1,24 @@
 {
   "todo": [
     {
-      "activity": "Ngoding",
+      "activity": "Create",
       "isFinished": false,
       "id": 1
     },
     {
-      "activity": "Turu",
+      "activity": "Read",
       "isFinished": false,
       "id": 2
     },
     {
-      "activity": "Ngising",
+      "activity": "Update",
       "isFinished": false,
       "id": 3
+    },
+    {
+      "activity": "Delete",
+      "isFinished": false,
+      "id": 4
     }
   ]
 }
