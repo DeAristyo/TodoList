@@ -4,6 +4,7 @@ import TodoItems from '../components/todoItems';
 import React from 'react';
 import Axios from 'axios';
 import ReactModal from 'react-modal';
+import { Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { changeTodoCount, decrementTodoCount, incrementTodoCount, fetchGTodo } from '../redux/actions/todo';
 import { API } from '../Constants/API';
@@ -13,16 +14,12 @@ class TodoPage extends React.Component {
   state = {
     todoList: [],
     inputTodo: "",
-    openModal: false,
-    modalMasage: ""
+    alertState: false,
+    alertMessage: ""
   };
 
-  funOpenModal = (state) => {
-    this.setState({ openModal: true, modalMasage: state });
-  };
-
-  closeModal = () => {
-    this.setState({ openModal: false, modalMasage: "" });
+  openAlert = (state) => {
+    this.setState({ alertState: true, alertMessage: state });
   };
 
   renderTodoLis = () => {
@@ -46,7 +43,7 @@ class TodoPage extends React.Component {
     })
       .then(() => {
         this.props.fetchGTodo();
-        this.funOpenModal("To Do Completed");
+        this.openAlert("To Do Completed");
       })
       .catch((err) => {
         alert("There's an error in the system!");
@@ -79,7 +76,7 @@ class TodoPage extends React.Component {
     Axios.delete(`${API}/todo/${id}`)
       .then(() => {
         this.props.fetchGTodo();
-        this.funOpenModal("To Do Deleted!!");
+        this.openAlert("To Do Deleted!!");
       })
       .catch((err) => {
         console.log(err);
@@ -95,31 +92,18 @@ class TodoPage extends React.Component {
     this.props.fetchGTodo();
   }
 
-  customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      borderRadius: '5px',
-      transform: 'translate(-50%, -50%)',
-    }
-  };
-
   render() {
     return (
       <div className="todo-container">
-        <ReactModal
-          style={this.customStyles}
-          onRequestClose={this.closeModal}
-          isOpen={this.state.openModal}
-          shouldCloseOnEsc
-          shouldCloseOnOverlayClick
-        >
-          <h4>{this.state.modalMasage}</h4>
-
-        </ReactModal>
+        {this.state.alertState === true && this.state.alertMessage === "To Do Completed" ?
+          (<Alert variant="success" onClose={() => this.setState({ alertState: false })} dismissible>
+            <strong>{this.state.alertMessage}</strong>
+          </Alert>)
+          : this.state.alertState === true && this.state.alertMessage === "To Do Deleted!!" ?
+            (<Alert variant="danger" onClose={() => this.setState({ alertState: false })} dismissible>
+              <strong>{this.state.alertMessage}</strong>
+            </Alert>) : null
+        }
         <div className="list-todo d-flex flex-column justify-content-center align-items-center">
           <h1>To Do list</h1>
           {this.renderTodoLis()}
@@ -128,7 +112,7 @@ class TodoPage extends React.Component {
             <button onClick={this.addTodo} className="btn-add">Add To Do</button>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

@@ -11,6 +11,7 @@
     "json-server": "^0.16.3",
     "modal": "^1.2.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
     "react-modal": "^3.14.4",
     "react-redux": "^7.2.5",

@@ -87,3 +87,10 @@
 .input-todo::placeholder {
 	color: #ffa372;
 }
+
+.alert {
+	display: flex;
+	align-items: center;
+	max-width: 200px;
+	margin: 20px auto 0 auto;
+}
