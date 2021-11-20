@@ -14,12 +14,11 @@ class TodoPage extends React.Component {
   state = {
     todoList: [],
     inputTodo: "",
-    alertState: false,
     alertMessage: ""
   };
 
   openAlert = (state) => {
-    this.setState({ alertState: true, alertMessage: state });
+    this.setState({ alertMessage: state });
   };
 
   renderTodoLis = () => {
@@ -95,12 +94,12 @@ class TodoPage extends React.Component {
   render() {
     return (
       <div className="todo-container">
-        {this.state.alertState === true && this.state.alertMessage === "To Do Completed" ?
-          (<Alert variant="success" onClose={() => this.setState({ alertState: false })} dismissible>
+        {this.state.alertMessage === "To Do Completed" ?
+          (<Alert variant="success" onClose={() => this.setState({ alertMessage: "" })} dismissible>
             <strong>{this.state.alertMessage}</strong>
           </Alert>)
-          : this.state.alertState === true && this.state.alertMessage === "To Do Deleted!!" ?
-            (<Alert variant="danger" onClose={() => this.setState({ alertState: false })} dismissible>
+          : this.state.alertMessage === "To Do Deleted!!" ?
+            (<Alert variant="danger" onClose={() => this.setState({ alertMessage: "" })} dismissible>
               <strong>{this.state.alertMessage}</strong>
             </Alert>) : null
         }
