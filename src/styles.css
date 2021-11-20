@@ -9,6 +9,7 @@
 }
 
 .list-todo {
+	border-radius: 30px;
 	padding: 40px;
 	box-shadow: 0 0 0 10px #ffa372, 0 0 0 20px #ed6663, 0 0 0 30px #4e89ae,
 		0 0 0 40px #43658b;

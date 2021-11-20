@@ -1,24 +1,24 @@
 {
-	"todo": [
-		{
-			"activity": "Create",
-			"isFinished": false,
-			"id": 1
-		},
-		{
-			"activity": "Read",
-			"isFinished": false,
-			"id": 2
-		},
-		{
-			"activity": "Update",
-			"isFinished": false,
-			"id": 3
-		},
-		{
-			"activity": "Delete",
-			"isFinished": false,
-			"id": 4
-		}
-	]
+  "todo": [
+    {
+      "activity": "Create",
+      "isFinished": false,
+      "id": 1
+    },
+    {
+      "activity": "Read",
+      "isFinished": false,
+      "id": 2
+    },
+    {
+      "activity": "Update",
+      "isFinished": false,
+      "id": 3
+    },
+    {
+      "activity": "Delete",
+      "isFinished": false,
+      "id": 4
+    }
+  ]
 }
